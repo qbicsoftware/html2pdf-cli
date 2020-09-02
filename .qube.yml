@@ -1,0 +1,19 @@
+full_name: Sven Fillinger
+email: sven.fillinger@qbic.uni-tuebingen.de
+project_name: html2pdf
+project_short_description: html2pdf. A qube based .
+version: 0.1.0-SNAPSHOT
+domain: cli
+language: java
+project_slug: html2pdf
+project_slug_no_hyphen: html2pdf
+template_version: '1.0.0 # <<QUBE_NO_BUMP>>'
+template_handle: cli-java
+github_username: sven1103
+creator_github_username: sven1103
+is_github_repo: true
+is_repo_private: false
+is_github_orga: false
+copyright_holder: QBiC
+license: MIT
+main_class_prefix: Qbic
