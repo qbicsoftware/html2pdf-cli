@@ -44,10 +44,10 @@ class HtmlToPdfConversion {
     out.write(content)
   }
 
-  public static void convertToPdf(String html, String fileOutput) {
+  public void convertToPdf(String html, String fileOutput) {
     new File(fileOutput).withOutputStream {
       def builder = new PdfRendererBuilder()
-      builder.useFastMode().withUri("file:///Users/jenniferboedker/IdeaProjects/html2pdf-cli/manipulated.html")
+      builder.useFastMode().withUri("file:///Users/jenniferboedker/IdeaProjects/html2pdf-cli/src/main/resources/template/htmltest.html")
       builder.toStream(it).run()
     }
   }
