@@ -2,6 +2,7 @@ package life.qbic.cli;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import life.qbic.cli.;
 
 /**
  * Implementation of html2pdf. Its command-line arguments are contained in instances of {@link QbicCommand}.
@@ -25,7 +26,7 @@ public class QbicTool extends QBiCTool<QbicCommand> {
         final QbicCommand command = super.getCommand();
 
         // TODO: do something useful with the obtained command.
-        //
+        Tes
 
     }
 
