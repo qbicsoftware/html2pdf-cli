@@ -4,6 +4,7 @@ import com.openhtmltopdf.pdfboxout.PdfRendererBuilder
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import org.jsoup.parser.Parser
 
 import java.nio.file.Path
 
@@ -17,37 +18,41 @@ import java.nio.file.Path
  */
 class HtmlToPdfConversion {
 
-  private final static String PROJECT__ID
-
   private final Document html
-  private final String outputPath = "/Users/jenniferboedker/IdeaProjects/html2pdf-cli/manipulated.html"
-  private final String outputPathPDF = "/Users/jenniferboedker/IdeaProjects/html2pdf-cli/manipulated.pdf"
 
+  private final Path manipulatedHtmlFile
 
-  HtmlToPdfConversion(String html) {
-    this.html = Jsoup.parse(html)
+  private final Path manipulatedPdfFile
+
+  private final Path fileDir
+
+  HtmlToPdfConversion(File html) {
+    this.html = Parser.xmlParser().parseInput(html.text, "")
+    this.fileDir = html.toPath().getParent()
+    this.manipulatedHtmlFile =  this.fileDir.resolve(createUniqueFileName("html"))
+    this.manipulatedPdfFile = this.fileDir.resolve(createUniqueFileName("pdf"))
   }
 
-  public void manipulateDom() {
-    println "before "+ html.getElementById("header")
-    html.getElementById("header").html("this is the new text")
-    println "after " + html.getElementById("header")
-
-    saveHtmlToFile(outputPath)
-    convertToPdf(outputPath,outputPathPDF)
+  private static String createUniqueFileName(String fileExtension) {
+    def uuid = UUID.randomUUID().toString()
+    return "manipulated-${uuid}.${fileExtension}"
   }
 
-  public void saveHtmlToFile(String path) {
+  void manipulateDom() {
+    html.getElementById("header").html("This is some manipulated ")
+    saveHtmlToFile()
+  }
+
+  private void saveHtmlToFile() {
     // Save html to file
-    File out = new File(path)
-    String content = html.toString()
-    out.write(content)
+    File out = new File(manipulatedHtmlFile.toUri())
+    out.write(html.toString())
   }
 
-  public void convertToPdf(String html, String fileOutput) {
-    new File(fileOutput).withOutputStream {
+  void convertToPdf() {
+    new File(manipulatedPdfFile.toUri()).withOutputStream {
       def builder = new PdfRendererBuilder()
-      builder.useFastMode().withUri("file:///Users/jenniferboedker/IdeaProjects/html2pdf-cli/src/main/resources/template/htmltest.html")
+      builder.useFastMode().withUri(manipulatedHtmlFile.toUri().toString())
       builder.toStream(it).run()
     }
   }

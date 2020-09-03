@@ -30,26 +30,11 @@ public class QbicTool extends QBiCTool<QbicCommand> {
         // get the parsed command-line arguments
         final QbicCommand command = super.getCommand();
 
-        InputStream inputStream = QbicTool.class.getClassLoader().getResourceAsStream("template/htmltest.html");
-        //creating an InputStreamReader object
-        InputStreamReader isReader = new InputStreamReader(inputStream);
-        //Creating a BufferedReader object
-        BufferedReader reader = new BufferedReader(isReader);
-        StringBuffer sb = new StringBuffer();
-        String str = "";
-
-        try{
-            while((str = reader.readLine())!= null){
-                sb.append(str);
-            }
-        }catch(Exception e){
-            System.out.println(e);
-        }
-
-        HtmlToPdfConversion toPdfConversion = new HtmlToPdfConversion(sb.toString());
-        //manipulate
+        HtmlToPdfConversion toPdfConversion = new HtmlToPdfConversion(command.file);
+        // manipulate
         toPdfConversion.manipulateDom();
-
+        // convert
+        toPdfConversion.convertToPdf();
     }
 
     // TODO: override the shutdown() method if you are implementing a daemon and want to take advantage of a shutdown hook for clean-up tasks
