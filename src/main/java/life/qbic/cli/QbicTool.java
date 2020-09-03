@@ -2,7 +2,12 @@ package life.qbic.cli;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import life.qbic.cli.;
+import org.apache.logging.log4j.core.util.IOUtils;
+
+import java.io.*;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of html2pdf. Its command-line arguments are contained in instances of {@link QbicCommand}.
@@ -25,8 +30,25 @@ public class QbicTool extends QBiCTool<QbicCommand> {
         // get the parsed command-line arguments
         final QbicCommand command = super.getCommand();
 
-        // TODO: do something useful with the obtained command.
-        Tes
+        InputStream inputStream = QbicTool.class.getClassLoader().getResourceAsStream("template/htmltest.html");
+        //creating an InputStreamReader object
+        InputStreamReader isReader = new InputStreamReader(inputStream);
+        //Creating a BufferedReader object
+        BufferedReader reader = new BufferedReader(isReader);
+        StringBuffer sb = new StringBuffer();
+        String str = "";
+
+        try{
+            while((str = reader.readLine())!= null){
+                sb.append(str);
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        HtmlToPdfConversion toPdfConversion = new HtmlToPdfConversion(sb.toString());
+        //manipulate
+        toPdfConversion.manipulateDom();
 
     }
 
