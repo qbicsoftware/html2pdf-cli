@@ -1,7 +1,9 @@
 package life.qbic.cli;
 
+import java.io.File;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
 
 /**
  * Abstraction of command-line arguments that will be passed to {@link QbicTool} at construction time.
@@ -10,6 +12,9 @@ import picocli.CommandLine.Option;
    name="Qbic",
    description="html2pdf. A qube based .")
 public class QbicCommand extends AbstractCommand {
+
+    @Parameters(index = "0", description = "The HTML file that is to be converted into PDF.")
+    File file;
     // TODO: add your command-line options as members of this class using picocli's annotations, for instance:
     //
     // @Option(names={"-u", "--url"}, description="openBIS server URL.", required=true)
