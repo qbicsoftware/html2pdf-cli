@@ -26,15 +26,29 @@ html2pdf
     :alt: Dependabot Enabled
 
 
-html2pdf. A qube based .
+html2pdf. A simple Java CLI to manipulate a given HTML file and create a PDF out of it.
 
 * Free software: MIT license
 * Documentation: https://html2pdf.readthedocs.io.
 
-Features
+Installation
 --------
 
-* TODO
+Checkout from this Git repository and run:
+
+.. code-block:: bash
+    
+    mvn clean package
+    
+This will create the executable Java binaries as JAR In the folder :code:`target` (*-jar-with-dependencies.jar). 
+
+The run the CLI with:
+
+.. code-block:: bash
+
+    java -jar target/html2pdf-0.1.0-SNAPSHOT-jar-with-dependencies.jar [test-file.html]
+    
+
 
 Credits
 -------
